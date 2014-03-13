@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN 2.0//EN" "http://www.springframework.org/dtd/spring-beans-2.0.dtd">
+<beans>
+  <bean id="restletComponent" class="org.restlet.ext.spring.SpringComponent">
+    <property name="defaultTarget" ref="restletBaseAppliction" />
+  </bean>
+
+  <bean id="restletBaseAppliction" class="ma.creative.ctframework.rest.RestletBaseApplication">
+    <property name="root" ref="router" />
+  </bean>
+
+  <!--  Define the router -->
+  <bean name="router" class="org.restlet.ext.spring.SpringBeanRouter" />
+  
+  <!-- Define all the routes -->
+  <!-- the routes are defined in annotations *.rest.* -->
+
+</beans>

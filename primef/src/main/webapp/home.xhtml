@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+"http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:p="http://primefaces.org/ui">
+<h:head>
+	<title></title>
+	<link href="./css/styles.css" rel="stylesheet" type="text/css" />
+</h:head>
+<h:body>
+	<h:panelGroup id="master" layout="block">
+		<h:form>
+			<p:outputPanel id="users">
+				<p:dataTable paginatorPosition="bottom"  widgetVar="myTableVar" id="usersTable" value="#{personBean.allPersons}" 
+					var="person" paginator="true" rowKey="#{person.id}" rows="5"  selection="#{personBean.selectedPerson}" selectionMode="single">
+					<p:ajax event="rowSelect" update=":content:" />
+					<f:facet name="header">  
+			            List of Persons  
+			        </f:facet> 
+					<p:column id="id" filterBy="id" sortBy="id" headerText="N°">
+							#{person.id}
+					</p:column>
+					<p:column id="name" filterBy="name" sortBy="name" headerText="Name">
+							#{person.name}
+					</p:column>
+	
+					<p:column id="age" filterBy="age" sortBy="age" headerText="Age">
+							#{person.age}
+					</p:column>
+					<p:column id="anasse" filterBy="anasse" sortBy="anasse" headerText="Anasse">
+							#{person.anasse}
+					</p:column>
+					<f:facet name="footer">  
+					        <p:commandButton value="Create New User" partialSubmit="true" update=":content:"  action="#{personBean.reinit}"  />
+			        </f:facet>  
+				</p:dataTable>
+			</p:outputPanel>
+			
+		</h:form>
+	</h:panelGroup>
+	<h:panelGroup id="content" layout="block">
+		<h:form>
+			<p:growl id="msgs" />
+			<p:panel header="Create a new User">
+				<h:panelGrid columns="2" id="grid">
+					<h:outputLabel value="Name : *" for="txt_name" />
+					<p:inputText id="txt_name" value="#{personBean.selectedPerson.name}"
+						required="true" />
+	
+					<h:outputLabel value="age : *" for="txt_age" />
+					<p:inputText id="txt_age" required="true"
+						value="#{personBean.selectedPerson.age}" />
+					<h:outputLabel value="Anasse : *" for="txt_age" />
+					<p:inputText id="txt_anasse" required="true"
+						value="#{personBean.selectedPerson.anasse}" />
+	
+						<p:commandButton id="btn_add" value="Add" partialSubmit="true" update=":master:" actionListener="#{personBean.savePerson}" />
+				</h:panelGrid>
+				<p:dataTable id="course" value="#{personBean.selectedPerson.course}" 
+					var="course" rowKey="#{course.id}" >
+					<f:facet name="header">  
+			            List of Course  
+			        </f:facet> 
+					<p:column id="id" filterBy="id" sortBy="id" headerText="N°">
+						#{course.id}
+					</p:column>
+					<p:column id="libelle" filterBy="libelle" sortBy="libelle" headerText="Name">
+							#{course.libelle}
+					</p:column>
+				</p:dataTable>
+				<p:panelGrid columns="2">
+                    <h:outputLabel for="name" value="Name: " />
+                    <p:inputText  value="#{personBean.name}"/>
+                    <f:facet name="footer">
+                        <p:commandButton value="Add Item" partialSubmit="true" update=":content:" actionListener="#{personBean.addCourse}"/>
+                    </f:facet>
+                </p:panelGrid>
+			</p:panel>
+		</h:form>
+	</h:panelGroup>
+</h:body>
+</html>

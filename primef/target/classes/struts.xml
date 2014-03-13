@@ -1,0 +1,69 @@
+<!DOCTYPE struts PUBLIC
+    "-//Apache Software Foundation//DTD Struts Configuration 2.0//EN"
+    "http://struts.apache.org/dtds/struts-2.0.dtd">
+
+<struts>
+
+	<constant name="struts.devMode" value="true" />
+
+	<constant name="struts.objectFactory" value="spring" />
+	<constant name="struts.convention.action.packages" value="ma.creative.*.action" />
+	<constant name="struts.convention.action.suffix" value="Action" />
+	<constant name="struts.convention.action.mapAllMatches" value="true" />
+
+	<package name="internationalisation" extends="struts-default"
+		namespace="/internationalisation">
+		<interceptors>
+			<interceptor-stack name="appDefaultStack">
+				<interceptor-ref name="defaultStack">
+					<param name="exception.logEnabled">true</param>
+					<param name="exception.logLevel">DEBUG</param>
+				</interceptor-ref>
+			</interceptor-stack>
+		</interceptors>
+
+		<default-interceptor-ref name="appDefaultStack" />
+
+		<global-results>
+			<result name="error">/error.jsp</result>
+		</global-results>
+
+		<global-exception-mappings>
+			<exception-mapping exception="java.lang.Exception"
+				result="error" />
+		</global-exception-mappings>
+		
+		<!-- Generic labels and messages -->
+		<action name="genericInternationalisation">
+			<result name="success">/WEB-INF/internationalisation/commons/genericInternationalisation.jsp
+			</result>
+		</action>
+		<action name="projetListInternationalisation">
+			<result name="success">/WEB-INF/internationalisation/metier/projetListInternationalisation.jsp
+			</result>
+		</action>
+		<action name="collaborateurListInternationalisation">
+			<result name="success">/WEB-INF/internationalisation/metier/collaborateurListInternationalisation.jsp
+			</result>
+		</action>
+		<action name="affectationListInternationalisation">
+			<result name="success">/WEB-INF/internationalisation/metier/affectationListInternationalisation.jsp
+			</result>
+		</action>
+		<action name="imputationListInternationalisation">
+			<result name="success">/WEB-INF/internationalisation/metier/imputationListInternationalisation.jsp
+			</result>
+		</action>
+	</package>
+
+	<package name="aide" extends="struts-default" namespace="/aide">
+	</package>
+
+	<package name="administration" extends="struts-default"
+		namespace="/administration">
+	</package>
+
+	<package name="metier" extends="struts-default" namespace="/metier">
+	</package>
+
+</struts>
